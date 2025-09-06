@@ -12,11 +12,8 @@ export default function Home() {
         professional work necessarily.
       </p>
       <p className="body">
-        check out the{" "}
-        <Link href="/changelog" className="underline">
-          changelog
-        </Link>{" "}
-        to see what&apos;s new.
+        check out the <Link href="/changelog">changelog</Link> to see
+        what&apos;s new.
       </p>
     </>
   );

@@ -21,10 +21,7 @@ export default async function ChangelogPage() {
         <ChangelogCard key={release.id} {...release} />
       ))}
       <p className="body">
-        go back to{" "}
-        <Link href="/" className="underline">
-          homepage
-        </Link>
+        go back to <Link href="/">homepage</Link>
       </p>
     </>
   );

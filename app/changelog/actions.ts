@@ -1,4 +1,4 @@
-import { GitHubRelease } from '@/types/github';
+import { GitHubRelease } from "@/types/github";
 
 export default async function getChangelogReleases(): Promise<GitHubRelease[]> {
   try {
@@ -6,8 +6,8 @@ export default async function getChangelogReleases(): Promise<GitHubRelease[]> {
       `https://api.github.com/repos/valebearzotti/valentina.dev/releases`,
       {
         headers: {
-          'Accept': 'application/vnd.github.v3+json',
-        }
+          Accept: "application/vnd.github.v3+json",
+        },
       }
     );
 
@@ -17,14 +17,18 @@ export default async function getChangelogReleases(): Promise<GitHubRelease[]> {
     }
 
     const releases: GitHubRelease[] = await response.json();
-    
+
     const publishedReleases = releases
-      .filter(release => !release.draft && !release.prerelease)
-      .sort((a, b) => new Date(b.published_at).getTime() - new Date(a.published_at).getTime());
+      .filter((release) => !release.draft && !release.prerelease)
+      .sort(
+        (a, b) =>
+          new Date(b.published_at).getTime() -
+          new Date(a.published_at).getTime()
+      );
 
     return publishedReleases;
   } catch (error) {
-    console.error('Error fetching releases:', error);
+    console.error("Error fetching releases:", error);
     return [];
   }
 }

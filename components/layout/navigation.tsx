@@ -25,7 +25,7 @@ const navigationItems = [
 
 export const Navigation = () => {
   return (
-    <aside className="w-64 min-h-dvh p-8 pt-2">
+    <aside className="w-64 min-h-dvh p-8 pt-10 fixed top-0">
       <nav className="flex flex-col gap-4">
         {navigationItems.map((item) => (
           <Link key={item.href} href={item.href}>

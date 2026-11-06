@@ -1,0 +1,24 @@
+:root {
+  --grid-columns: 4;
+  --grid-gutter: 1rem;
+  --grid-margin: 1.25rem;
+  --grid-max-width: 60rem;
+  --grid-overlay: rgb(255 0 0 / 0.1);
+}
+
+@media (width >= 48rem) {
+  :root {
+    --grid-columns: 12;
+    --grid-gutter: 1.5rem;
+    --grid-margin: 2rem;
+  }
+}
+
+@utility layout-grid {
+  display: grid;
+  grid-template-columns: repeat(var(--grid-columns), minmax(0, 1fr));
+  column-gap: var(--grid-gutter);
+  width: 100%;
+  max-width: var(--grid-max-width);
+  padding-inline: var(--grid-margin);
+}

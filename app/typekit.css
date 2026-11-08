@@ -1,0 +1,14 @@
+@theme {
+  --text-*: initial;
+
+  --text-title: 1.25rem;
+  --text-title--line-height: 1.75rem;
+  --text-title--letter-spacing: -0.01em;
+  --text-title--font-weight: 500;
+
+  --text-body: 1rem;
+  --text-body--line-height: 1.5rem;
+
+  --text-caption: 0.8125rem;
+  --text-caption--line-height: 1.25rem;
+}

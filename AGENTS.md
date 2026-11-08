@@ -16,7 +16,7 @@
   the left, content to its right, left-aligned and capped at
   `--grid-max-width`. Press `Ctrl+G` to toggle the grid overlay.
 - Colors: only the tokens in `app/globals.css` (`foreground`, `muted`,
-  `border`, `background`).
+  `border`, `background`, `overlay`).
 
 ## Content
 

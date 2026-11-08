@@ -1,4 +1,16 @@
 @theme {
   --ease-out-strong: cubic-bezier(0.23, 1, 0.32, 1);
-  --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
+
+  --animate-nav-item-in: nav-item-in 300ms var(--ease-out-strong) both;
+
+  @keyframes nav-item-in {
+    from {
+      opacity: 0;
+      transform: translateY(4px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
 }

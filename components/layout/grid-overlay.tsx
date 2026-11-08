@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useSyncExternalStore } from "react";
 
 const storageKey = "grid-overlay";
 const columnCount = 12;
@@ -9,22 +9,34 @@ const isDevelopment = process.env.NODE_ENV === "development";
 const isToggleShortcut = (event: KeyboardEvent) =>
   event.ctrlKey && !event.metaKey && event.key.toLowerCase() === "g";
 
+const listeners = new Set<() => void>();
+
+const subscribe = (listener: () => void) => {
+  listeners.add(listener);
+  return () => listeners.delete(listener);
+};
+
+const getIsVisible = () => localStorage.getItem(storageKey) === "visible";
+
+const getServerIsVisible = () => false;
+
+const toggleVisibility = () => {
+  localStorage.setItem(storageKey, getIsVisible() ? "hidden" : "visible");
+  listeners.forEach((listener) => listener());
+};
+
 export const GridOverlay = () => {
-  const [isVisible, setIsVisible] = useState(false);
-
-  useEffect(() => {
-    setIsVisible(localStorage.getItem(storageKey) === "visible");
-  }, []);
-
-  useEffect(() => {
-    localStorage.setItem(storageKey, isVisible ? "visible" : "hidden");
-  }, [isVisible]);
+  const isVisible = useSyncExternalStore(
+    subscribe,
+    getIsVisible,
+    getServerIsVisible,
+  );
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
       if (!isToggleShortcut(event)) return;
       event.preventDefault();
-      setIsVisible((visible) => !visible);
+      toggleVisibility();
     };
 
     window.addEventListener("keydown", handleKeyDown);
@@ -49,7 +61,7 @@ export const GridOverlay = () => {
       {isDevelopment && (
         <button
           type="button"
-          onClick={() => setIsVisible((visible) => !visible)}
+          onClick={toggleVisibility}
           aria-pressed={isVisible}
           className="text-caption text-muted hover:text-foreground fixed right-4 bottom-4 z-50 cursor-pointer"
         >

@@ -1,38 +1,31 @@
+"use client";
+
 import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { MobileMenu } from "./mobile-menu";
+import { isActivePath, navigationItems } from "./navigation-items";
 
-const navigationItems = [
-  {
-    label: "home",
-    href: "/",
-  },
-  {
-    label: "readme",
-    href: "/readme",
-  },
-  {
-    label: "blog",
-    href: "/blog",
-  },
-  {
-    label: "contact",
-    href: "/contact",
-  },
-  {
-    label: "changelog",
-    href: "/changelog",
-  },
-];
+export const Navigation = ({ className }: { className?: string }) => {
+  const pathname = usePathname();
 
-export const Navigation = () => {
   return (
-    <aside className="w-64 min-h-dvh p-8 pt-10 fixed top-0">
-      <nav className="flex flex-col gap-4">
+    <nav className={className}>
+      <MobileMenu className="md:hidden" />
+      <ul className="hidden flex-col gap-1 md:flex">
         {navigationItems.map((item) => (
-          <Link key={item.href} href={item.href}>
-            {item.label}
-          </Link>
+          <li key={item.href}>
+            <Link
+              href={item.href}
+              aria-current={
+                isActivePath(pathname, item.href) ? "page" : undefined
+              }
+              className="text-muted no-underline hover:text-foreground aria-[current=page]:text-foreground"
+            >
+              {item.label}
+            </Link>
+          </li>
         ))}
-      </nav>
-    </aside>
+      </ul>
+    </nav>
   );
 };
